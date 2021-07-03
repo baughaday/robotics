@@ -15,53 +15,38 @@ uint8_t i;
 
 void setup()
 {
-
   Serial.begin(9600);
   AFMS.begin();  // create with the default frequency 1.6KHz
   StopMoving(); // this probably isn't necessary... but i'm leaving it.
   pinMode(trigPin, OUTPUT);         // set trig pin as output
   pinMode(echoPin, INPUT);
-
 }
 
 void loop()
 {
 
-digitalWrite(trigPin, LOW);
+  digitalWrite(trigPin, LOW);
   delayMicroseconds(2);
   digitalWrite(trigPin, HIGH);     // send waves for 10 us
   delayMicroseconds(10);
   duration = pulseIn(echoPin, HIGH); // receive reflected waves
   distance = duration / 58.2;   // convert to distance
   delay(10);
-   
-   if (distance <= 20)
-   {
+
+  if (distance <= 20)
+  {
 
     TurnLeft();
-    delay(1000);
-   }
-   else
-   {
-    GoForward();
-   }
-
-
-//  RampUpForward();
-//  GoForward();
-//  delay(1500);
-//  RampDown();
-//  RampUpBackward();
-//  GoBackward();
-//  delay(1000);
-//  RampDown();
-
+    delay(850);
+  }
+  else
+  {
+    //GoForward();
+    RampUpForward(); //this is a test.  2July2021 switched to this function untested
+  }
 }
 
-
-
-
-void RampUpForward()
+void RampUpForward(int driveTime)
 {
 
   motor1->run(FORWARD);
@@ -70,6 +55,10 @@ void RampUpForward()
     motor1->setSpeed(i);
     motor2->setSpeed(i);
     delay(10);
+    if (i == 119)
+    {
+      delay(driveTime);
+    }
   }
 
 }
