@@ -21,16 +21,14 @@ void setup()
 void loop()
 {
 
-  
-
 RampUpForward();
 GoForward();
 delay(1500);
-RampDownForward();
+RampDown();
 RampUpBackward();
 GoBackward();
 delay(1000);
-RampDownBackward();
+RampDown();
 
 //  motor1->run(FORWARD);
 //  motor2->run(FORWARD);
@@ -76,6 +74,15 @@ void RampUpForward()
     delay(10);
   }
 
+}
+
+void RampDown()
+{
+  for (i = 120; i != 0; i--) {
+    motor1->setSpeed(i);
+    motor2->setSpeed(i);
+    delay(10);
+  }
 }
 
 void RampDownForward()
