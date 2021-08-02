@@ -35,7 +35,6 @@ void loop()
 
   if (distance <= 20)
   {
-
     TurnLeft();
     delay(850);
   }
